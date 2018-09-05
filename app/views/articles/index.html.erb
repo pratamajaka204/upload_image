@@ -1,0 +1,82 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <a class="navbar-brand" href="#">Export </a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                      <li class="nav-item active">
+                        <button class="btn btn-md btn-warning"><%= link_to "Excel", articles_path(format: "xls")%></button>
+                      </li>
+                      <li class="nav-item active">
+                        <button class="btn btn-md btn-warning"><%= link_to "CSV", articles_path(format: "csv")%></button>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <a class="navbar-brand" href="#">Import </a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <%= form_tag import_articles_path, multipart: true do %>
+                    <%= file_field_tag :file %>
+                    <%= submit_tag "import", class: "btn btn-md btn-primary" %>
+                    <% end %>      
+                  </div>
+                </nav>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+  </div>
+</div>
+<h1 class="mb-4">Articles</h1>
+<%= link_to 'New Article', new_article_path, class: 'btn btn-md btn-success' %>
+<table id="articles" class="table display table-striped" data-source="<%= articles_url(format: "json") %>" >
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Status</th>
+      <th colspan="5">Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td>
+          <% if article.image_uid?  %> 
+            <%= image_tag article.image.url ,class: " image-index" %>
+          <% end %>
+        </td>
+        <td><%= article.title %></td>
+        <td><%= article.content %></td>
+        <td><%= article.status %></td>
+        <td><%= link_to 'Show', article %></td>
+        <td><%= link_to 'Edit', edit_article_path(article) %></td>
+        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

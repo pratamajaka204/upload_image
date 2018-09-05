@@ -1,0 +1,20 @@
+<h1>Rails Blog</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+<div class="row mt-5">	
+    <% @articles.each do |article| %>
+  		<div class="col-md-4 mb-4">
+  			<div class="card h-100 w-100" style="width: 18rem;">
+  				<% if article.image_uid?  %> 
+					<%= image_tag article.image.url ,class: "card-img-top h-50 p-2" %>
+				<% end %>
+				
+			  	<div class="card-body">
+				    <h5 class="card-title"><%= article.title %></h5>
+				    <p class="card-text"><%= article.content %></p>
+				    <%= link_to 'Show', article, class: 'btn btn-primary' %>
+				</div>
+	  		</div>
+	  	</div>
+	<% end %>
+</div>

@@ -1,0 +1,47 @@
+<%= form_with(model: article, local: true) do |form| %>
+  <% if article.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+      <ul>
+      <% article.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :image, class:"control-label" %>
+    <%= form.file_field :image, class:"form-control" %>
+    <% if form.object.image %>
+      <%= image_tag form.object.image.url %>
+      <%= form.label :remove_image %>
+      <%= form.check_box :remove_image %>
+    <% end %>
+
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :title, class: "label-control" %>
+    <%= form.text_field :title, class: "form-control" %>
+
+  </div>
+
+  <div class="form-group">
+    <%= form.label :content, class: "label-control" %>
+    <%= form.text_area :content, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+      <%= form.label :status %>
+      <%= form.radio_button :status, "Active" , :checked => true  %>
+      <%= form.label :article_status, 'Active' %>
+      <%= form.radio_button :status, "Off"  %>
+      <%= form.label :article_status, 'Off' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Simpan" , class: "btn btn-primary" %>
+  </div>
+<% end %>
